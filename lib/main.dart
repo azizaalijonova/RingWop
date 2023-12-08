@@ -1,7 +1,9 @@
 // main.dart
 
 import 'package:flutter/material.dart';
-import 'favorites_page.dart'; // Import the FavoritesPage
+import 'cart_page.dart';
+import 'favorites_page.dart';
+import 'user_profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +16,11 @@ class MyApp extends StatelessWidget {
       title: 'Ring Shop',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          color: Color(0xFFfaf3a5), // Set color for the app bar
+        ),
+        scaffoldBackgroundColor:
+            Color(0xFFfaf3a5), // Set background color for the scaffold
       ),
       home: MainPage(),
     );
@@ -26,23 +33,6 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Ring Shop'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Implement search functionality
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.favorite),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FavoritesPage()),
-              );
-            },
-          ),
-        ],
       ),
       body: RingList(),
       bottomNavigationBar: ControlBar(),
@@ -71,6 +61,7 @@ class RingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white, // Set color for the card
       child: Image.network(
         'https://example.com/ring_image.jpg',
         fit: BoxFit.cover,
@@ -101,19 +92,26 @@ class ControlBar extends StatelessWidget {
           label: 'Profile',
         ),
       ],
-      selectedItemColor: Colors.blue, // Color for the selected icon
-      unselectedItemColor: Colors.grey, // Color for unselected icons
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.grey,
+      backgroundColor: Color(
+          0xFFfaf3a5), // Set color for the bottom navigation bar background
       onTap: (index) {
         // Handle navigation based on the selected index
-        if (index == 3) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => UserProfilePage()),
-          );
-        } else if (index == 1) {
+        if (index == 1) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FavoritesPage()),
+          );
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CartPage()),
+          );
+        } else if (index == 3) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserProfilePage()),
           );
         } else {
           // Handle other navigation options if needed
@@ -130,48 +128,128 @@ class UserProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('User Profile'),
       ),
-      body: Center(
-        child: Text('User Profile Page'),
-      ),
-    );
-  }
-}
-
-class FavoritesPage extends StatelessWidget {
-  final List<String> likedRings = [
-    'Ring 1',
-    'Ring 2',
-    'Ring 3',
-  ]; // Example list of liked rings
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorites'),
-      ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              UserProfilePicture(),
+              SizedBox(height: 16.0),
+              UserInfo(
+                name: 'John Doe',
+                age: 30,
+                phoneNumber: '+1234567890',
+              ),
+              SizedBox(height: 16.0),
+              OrderHistory(),
+              SizedBox(height: 16.0),
+              PromoCodes(),
+              SizedBox(height: 16.0),
+              Settings(),
+            ],
+          ),
         ),
-        itemCount: likedRings.length,
-        itemBuilder: (context, index) {
-          return LikedRingItem();
-        },
       ),
     );
   }
 }
 
-class LikedRingItem extends StatelessWidget {
+class UserProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Image.network(
-        'https://example.com/liked_ring_image.jpg', // Replace with actual image URL
-        fit: BoxFit.cover,
-      ),
+    // Replace the placeholder image URL with the actual user's profile picture URL
+    const String profilePictureUrl = 'https://example.com/user_profile.jpg';
+
+    return CircleAvatar(
+      radius: 50.0,
+      backgroundImage: NetworkImage(profilePictureUrl),
+    );
+  }
+}
+
+class UserInfo extends StatelessWidget {
+  final String name;
+  final int age;
+  final String phoneNumber;
+
+  const UserInfo({
+    required this.name,
+    required this.age,
+    required this.phoneNumber,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'Name: $name',
+          style: TextStyle(fontSize: 18.0),
+        ),
+        SizedBox(height: 8.0),
+        Text(
+          'Age: $age',
+          style: TextStyle(fontSize: 18.0),
+        ),
+        SizedBox(height: 8.0),
+        Text(
+          'Phone Number: $phoneNumber',
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ],
+    );
+  }
+}
+
+class OrderHistory extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Replace this with your logic to fetch and display the user's order history
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Order History',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+        // Add the order history items here
+      ],
+    );
+  }
+}
+
+class PromoCodes extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Replace this with your logic to fetch and display the user's promo codes
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Promo Codes',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+        // Add the promo codes items here
+      ],
+    );
+  }
+}
+
+class Settings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Replace this with your settings UI
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Settings',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+        // Add the settings items here
+      ],
     );
   }
 }

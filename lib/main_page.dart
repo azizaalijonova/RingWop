@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -86,8 +88,21 @@ class ControlBar extends StatelessWidget {
           icon: Icon(Icons.shopping_cart),
           label: 'Cart',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
       ],
       // Add any additional properties or handlers as needed
+      onTap: (index) {
+        // Handle navigation based on the selected index
+        if (index == 3) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => UserProfilePage()));
+        } else {
+          // Handle other navigation options if needed
+        }
+      },
     );
   }
 }

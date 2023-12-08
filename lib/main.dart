@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'cart_page.dart';
 import 'favorites_page.dart';
 import 'user_profile.dart';
+import 'sign_in_page.dart'; // Import the SignInPage
 
 void main() {
   runApp(MyApp());
@@ -17,10 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: AppBarTheme(
-          color: Color(0xFFfaf3a5), // Set color for the app bar
+          color: Color(0xFFfaf3a5),
         ),
-        scaffoldBackgroundColor:
-            Color(0xFFfaf3a5), // Set background color for the scaffold
+        scaffoldBackgroundColor: Color(0xFFfaf3a5),
       ),
       home: MainPage(),
     );
@@ -33,6 +33,23 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Ring Shop'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Implement search functionality
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FavoritesPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: RingList(),
       bottomNavigationBar: ControlBar(),
@@ -61,7 +78,7 @@ class RingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white, // Set color for the card
+      color: Colors.white,
       child: Image.network(
         'https://example.com/ring_image.jpg',
         fit: BoxFit.cover,
@@ -94,8 +111,7 @@ class ControlBar extends StatelessWidget {
       ],
       selectedItemColor: Colors.blue,
       unselectedItemColor: Colors.grey,
-      backgroundColor: Color(
-          0xFFfaf3a5), // Set color for the bottom navigation bar background
+      backgroundColor: Color(0xFFfaf3a5),
       onTap: (index) {
         // Handle navigation based on the selected index
         if (index == 1) {
@@ -120,6 +136,7 @@ class ControlBar extends StatelessWidget {
     );
   }
 }
+
 
 class UserProfilePage extends StatelessWidget {
   @override
@@ -158,7 +175,6 @@ class UserProfilePage extends StatelessWidget {
 class UserProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Replace the placeholder image URL with the actual user's profile picture URL
     const String profilePictureUrl = 'https://example.com/user_profile.jpg';
 
     return CircleAvatar(
@@ -206,7 +222,6 @@ class UserInfo extends StatelessWidget {
 class OrderHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Replace this with your logic to fetch and display the user's order history
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -223,7 +238,6 @@ class OrderHistory extends StatelessWidget {
 class PromoCodes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Replace this with your logic to fetch and display the user's promo codes
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -240,7 +254,6 @@ class PromoCodes extends StatelessWidget {
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Replace this with your settings UI
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -250,6 +263,59 @@ class Settings extends StatelessWidget {
         ),
         // Add the settings items here
       ],
+    );
+  }
+}
+
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign In'),
+        backgroundColor: Color(0xFFfaf3a5), // Set color for the app bar
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email',
+              ),
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: 'Password',
+              ),
+              obscureText: true,
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                // Add your sign-in logic here
+                String email = _emailController.text;
+                String password = _passwordController.text;
+                // Perform authentication or navigation based on credentials
+              },
+              child: Text('Sign In'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

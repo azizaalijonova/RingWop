@@ -16,8 +16,8 @@ class UserProfilePage extends StatelessWidget {
               UserProfilePicture(),
               SizedBox(height: 16.0),
               UserInfo(
-                name: 'John Doe',
-                age: 30,
+                name: 'Aziza Alijonova',
+                age: 20,
                 phoneNumber: '+1234567890',
               ),
               SizedBox(height: 16.0),

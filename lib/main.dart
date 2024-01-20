@@ -78,8 +78,8 @@ class RingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      child: Image.network(
-        'https://example.com/ring_image.jpg',
+      child: Image.asset(
+        'assets/images/1.jpg',
         fit: BoxFit.cover,
       ),
     );

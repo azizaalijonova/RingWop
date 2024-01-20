@@ -1,10 +1,8 @@
-// main.dart
-
 import 'package:flutter/material.dart';
 import 'cart_page.dart';
 import 'favorites_page.dart';
 import 'user_profile.dart';
-import 'sign_in.dart'; // Import the SignInPage
+import 'sign_in.dart';
 import 'registration_page.dart';
 
 void main() {
@@ -318,28 +316,3 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 }
-
-// class ControlBar extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavigationBar(
-//       items: [
-//         // ... (Other items)
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.person_add),
-//           label: 'Register',
-//         ),
-//       ],
-//       onTap: (index) {
-//         if (index == 4) {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(builder: (context) => RegistrationPage()),
-//           );
-//         } else {
-//           // Handle other navigation options if needed
-//         }
-//       },
-//     );
-//   }
-// }

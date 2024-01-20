@@ -1,13 +1,15 @@
-// favorites_page.dart
-
 import 'package:flutter/material.dart';
 
 class LikedRingItem extends StatelessWidget {
+  final String imageUrl;
+
+  LikedRingItem({required this.imageUrl});
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Image.network(
-        'https://example.com/liked_ring_image.jpg', // Replace with actual image URL
+      child: Image.asset(
+        imageUrl,
         fit: BoxFit.cover,
       ),
     );
@@ -16,14 +18,13 @@ class LikedRingItem extends StatelessWidget {
 
 class FavoritesPage extends StatelessWidget {
   final List<String> likedRings = [
-    'Ring 1',
-    'Ring 2',
-    'Ring 3',
-  ]; // Example list of liked rings
+    'lib/images/1.jpg',
+    'lib/images/2.jpg',
+    'lib/images/3.jpg',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // Replace this with logic to fetch and display liked ring images
     return Scaffold(
       appBar: AppBar(
         title: Text('Favorites'),
@@ -35,7 +36,7 @@ class FavoritesPage extends StatelessWidget {
         ),
         itemCount: likedRings.length,
         itemBuilder: (context, index) {
-          return LikedRingItem();
+          return LikedRingItem(imageUrl: likedRings[index]);
         },
       ),
     );

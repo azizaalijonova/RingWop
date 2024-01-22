@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CartPage extends StatelessWidget {
   final List<CartItemData> cartItems = [
-    CartItemData('Ring 4', 'https://example.com/ring4_image.jpg'),
-    CartItemData('Ring 5', 'https://example.com/ring5_image.jpg'),
-    CartItemData('Ring 6', 'https://example.com/ring6_image.jpg'),
+    CartItemData('Ring 4', 'lib/images/4.jpg'),
+    CartItemData('Ring 5', 'lib/images/5.jpg'),
+    CartItemData('Ring 6', 'lib/images/6.jpg'),
   ]; // Example list of items in the cart
 
   @override
